@@ -13,8 +13,9 @@ In this project, you will find all the config files needed to implement a billin
 
 Please find the tutorial: how to implement a billing system for Opensips using CGRates on my linkedin page.
 
-[Part 1 - Billing System for Opensips CDRs][part1]
-[Part 2 - Billing System for Opensips CDRs][part2]
+......*[Part 1 - Billing System for Opensips CDRs][part1]
+
+......*[Part 2 - Billing System for Opensips CDRs][part2]
 
 
 
