@@ -1,0 +1,3 @@
+#Direction,Tenant,Category,Subject,ActivationTime,RatingPlanId,RatesFallbackSubject,CdrStatQueueIds
+*out,v.ibrowse.com,call,GUEST_RATING,2012-01-01T00:00:00Z,RP_GUEST,,
+*out,v.ibrowse.com,call,HOTEL_RATING,2012-01-01T00:00:00Z,RP_HOTEL,,

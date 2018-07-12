@@ -1,0 +1,122 @@
+{
+
+    // Real-time Online/Offline Charging System (OCS) for Telecom & ISP environments
+    // Copyright (C) ITsysCOM GmbH
+    
+    // Added by Srigo on 14/06/18
+    
+    "general": {
+        "default_request_type": "*rated",
+        "logger":"*syslog",                                                 // controls the destination of logs <*syslog|*stdout>
+        "log_level": 7,
+        "rounding_decimals": 5,
+        "poster_attempts": 3,
+        "default_category": "call",
+        "default_tenant": "v.ibrowse.com",
+        "default_timezone": "UTC",
+    },
+    
+    // Allow us to not run a Stor_db
+    "stor_db": {                                                         // database used to store offline tariff plans and CDRs
+          "db_type": "*internal",                                             // stor database type to use: <mongo|mysql|postgres>
+    },
+    
+    "data_db": {								// database used to store runtime data (eg: accounts, cdr stats)
+         "db_type": "redis",						// data_db type: <redis|mongo>
+         "db_host": "https://www.linkedin.com/redir/invalid-link-page?url=127%2e0%2e0%2e1",					// data_db host address
+         "db_port": 6379, 						// data_db port to reach the database
+         "db_name": "10", 						// data_db database name to connect to
+         "db_user": "cgrates", 					// username to use when connecting to data_db
+         "db_password": "", 						// password to use when connecting to data_db
+         "load_history_size": 10,				// Number of records in the load history
+     },
+    
+    "listen": {
+         "http": "https://www.linkedin.com/redir/invalid-link-page?url=0%2e0%2e0%2e0%3A2080",				// HTTP listening address
+    },
+    
+    "http": {
+        "json_rpc_url": "/jsonrpc"
+    },
+    
+    "rals": {
+        "enabled": true,
+    },
+    
+    // Enable CDR Server
+    
+    "cdrs": {
+        "enabled": true,						// start the CDR Server service:  <true|false>
+        "store_cdrs": false,
+        "pubsubs_conns": [],					// address where to reach the pubusb service, empty to disable pubsub functionality: <""|*internal|x.y.z.y:1234>
+         "attributes_conns": [],					// address where to reach the attribute service, empty to disable attributes functionality: <""|*internal|x.y.z.y:1234>
+         "users_conns": [],						// address where to reach the user service, empty to disable user profile functionality: <""|*internal|x.y.z.y:1234>
+         "aliases_conns": [],					// address where to reach the aliases service, empty to disable aliases functionality: <""|*internal|x.y.z.y:1234>
+         "cdrstats_conns": [],					// address where to reach the cdrstats service, empty to disable cdrstats functionality: <""|*internal|x.y.z.y:1234>
+         "thresholds_conns": [],					// address where to reach the thresholds service, empty to disable thresholds functionality: <""|*internal|x.y.z.y:1234>
+         "stats_conns": [],						// address where to reach the stat service, empty to disable stats functionality: <""|*internal|x.y.z.y:1234>
+         "online_cdr_exports":["amqp_cdr"]   // EXPORT RATED CDR to Rabbitmq
+    },
+    
+    
+    "cdrstats": {
+        "enabled": false,						// starts the cdrstats service: <true|false>
+    },
+    //CDR Exporting service
+    "cdre": {
+    // Rated CDR through Rabbitmq
+        "amqp_cdr": {
+            "export_format": "*amqp_json_map",
+        "export_path": "amqp://XXXXX:XXXXXX@XXXXX.ibrowse.com:5672/system?queue_id=rated_cdr&heartbeat=30",
+            "attempts": 3,
+            "content_fields": [                                                             // template of the exported content fields
+                {"tag": "CGRID", "type": "*composed", "value": "CGRID", "field_id": "CGRID"},
+                {"tag":"RunID", "type": "*composed", "value": "RunID", "field_id": "RunID"},
+                {"tag":"TOR", "type": "*composed", "value": "ToR", "field_id": "ToR"},
+                {"tag":"OriginID", "type": "*composed", "value": "OriginID", "field_id": "OriginID"},
+                {"tag":"OriginHost", "type": "*composed", "value": "OriginHost", "field_id": "OriginHost"},
+                {"tag":"RequestType", "type": "*composed", "value": "RequestType", "field_id": "RequestType"},
+                {"tag":"Direction", "type": "*composed", "value": "Direction", "field_id": "Direction"},
+                {"tag":"Tenant", "type": "*composed", "value": "Tenant", "field_id": "Tenant"},
+                {"tag":"Category", "type": "*composed", "value": "Category", "field_id": "Category"},
+                {"tag":"Account", "type": "*composed", "value": "Account", "field_id": "Account"},
+                {"tag":"Subject", "type": "*composed", "value": "Subject", "field_id": "Subject"},
+                {"tag":"Destination", "type": "*composed", "value": "Destination", "field_id": "Destination"},
+                {"tag":"SetupTime", "type": "*composed", "value": "SetupTime", "layout": "2006-01-02T15:04:05Z07:00", "field_id": "SetupTime"},
+                {"tag":"AnswerTime", "type": "*composed", "value": "AnswerTime", "layout": "2006-01-02T15:04:05Z07:00", "field_id": "AnswerTime"},
+                {"tag":"Usage", "type": "*composed", "value": "Usage{*duration_seconds}", "field_id": "Usage"},
+                {"tag":"Cost", "type": "*composed", "value": "Cost", "field_id": "Cost"},
+                {"tag":"Room", "type": "*composed", "value": "room", "field_id": "Room"},
+                {"tag":"Bill_to", "type": "*composed", "value": "bill_to", "field_id": "Bill_to"},
+                {"tag":"Tech_realm", "type": "*composed", "value": "tech_realm", "field_id": "Tech_realm"},
+                {"tag":"ConnectFee", "type": "*composed", "field_id": "ConnectFee", "value": "~CostDetails:s/\"ConnectFee\":(.*),\"RoundingMethod/${1}/"},
+                {"tag":"MatchedDestinationID", "type": "*composed", "field_id": "DestName", "value": "~CostDetails:s/\"DestinationID\":\"(.*)\",\"DestinationPrefix/${1}/"},
+                {"tag":"MatchedPrefix", "type": "*composed", "field_id": "MatchedPrefix", "value": "~CostDetails:s/\"DestinationPrefix\":\"(.*)\",\"RatingPlanID/${1}/"}
+            ]
+        }
+    },
+    
+    
+    "pubsubs": {
+        "enabled": false,				// starts PubSub service: <true|false>.
+    },
+    
+    
+    "aliases": {
+        "enabled": false,				// starts PubSub service: <true|false>.
+    },
+    
+    
+    "users": {
+        "enabled": false,				// starts User service: <true|false>.
+        "indexes": ["Uuid"],			// user profile field indexes
+    },
+    
+    
+    "sessions": {
+        "enabled": true,
+    },
+    
+    
+    }
+    

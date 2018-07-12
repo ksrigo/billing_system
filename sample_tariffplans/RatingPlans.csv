@@ -1,0 +1,5 @@
+#id,destinationratesid,timingtag,weight
+RP_HOTEL,DR_FRA_40CNT_0STP,*any,10
+RP_HOTEL,DR_FRA_MOB_50CNT_0STP,*any,10
+RP_GUEST,DR_FRA_40CNT_0STP,*any,10
+RP_GUEST,DR_FRA_MOB_50CNT_0STP,*any,10

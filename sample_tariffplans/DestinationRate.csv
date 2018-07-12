@@ -1,0 +1,3 @@
+#id, destinationId, ratesTag, roundingMethod, roundingDecimals, maxCost, maxCostStrategy
+DR_FRA_40CNT_0STP,FRA,RT_40CNT_0STP,*up,4,0,
+DR_FRA_MOB_50CNT_0STP,FRA_MOB,RT_50CNT_0STP,*up,4,0,

@@ -1,0 +1,3 @@
+#id,connectfee,rate,RateUnit,RateIncrement,GroupIntervalStart
+RT_40CNT_0STP,0,0.04,60s,60s,0s
+RT_50CNT_0STP,0,0.05,60s,60s,0s
