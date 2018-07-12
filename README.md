@@ -17,9 +17,12 @@ Please find the tutorial: how to implement a billing system for Opensips using C
 
 * [Part 2 - Billing System for Opensips CDRs][part2]
 
+* [Part 3 - Billing System for Opensips CDRs][part3]
+
 
 
 
 [topology]: https://github.com/ksrigo/billing_system/blob/master/ib_billing_process.jpg
 [part1]: https://www.linkedin.com/pulse/how-build-billing-system-opensips-cdrs-srigo-kanapathipillai/
 [part2]: https://www.linkedin.com/pulse/how-build-billing-system-opensips-cdrs-part-2-srigo-kanapathipillai-1c/
+[part3]: https://www.linkedin.com/pulse/part-3-billing-system-opensips-cdrs-srigo-kanapathipillai/
